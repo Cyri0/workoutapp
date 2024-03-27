@@ -17,19 +17,33 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from django.shortcuts import render
-from workout.models import Excercise
+from django.shortcuts import render, redirect
+from workout.models import Excercise, TrainingEvent
 
 def indexPage(request):
     excercises = Excercise.objects.all() # ⭐ SQL Magic ✨
-
+    events = TrainingEvent.objects.all() # ⭐ More SQL Magic ✨
     return render(
         request, 
         'index.html', 
-        {"excercises": excercises}
+        {"excercises": excercises, "events":events}
     )
+
+def addNew(request):
+    excercise = Excercise.objects.get(id = request.POST['excercise'])
+    date = request.POST['date']
+    reps = request.POST['reps']
+    weight = request.POST['weight']
+    event = TrainingEvent( 
+        excercise = excercise, 
+        date = date, 
+        reps = reps, 
+        weight = weight )
+    event.save()
+    return redirect('index')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', indexPage, name="index")
+    path('', indexPage, name="index"),
+    path('newEvent/', addNew, name="add")
 ]

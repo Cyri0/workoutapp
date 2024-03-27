@@ -8,13 +8,17 @@
 <body>
     <h1>WorkoutApp</h1>
 
-    <form action="#" method="post">
+    <form action="{% url 'add' %}" method="post">
+        {% csrf_token %}
         <label for="excercise">Gyakorlat</label><br>
         <select name="excercise" id="excercise">
             {% for excercise in excercises %}
                 <option value="{{ excercise.id }}">{{ excercise.name }}</option>
             {% endfor %}
         </select><br>
+
+        <label for="date">Dátum</label><br>
+        <input type="datetime-local" name="date" id="date"><br>
 
         <label for="reps">Ismétlés</label><br>
         <input type="number" name="reps" id="reps"><br>
@@ -25,8 +29,20 @@
         <input type="submit" value="Mentés">
     </form>
 
-    
-
+    <table>
+        <tr>
+            <th>Gyakorlat</th>
+            <th>Ismétlés</th>
+            <th>Súly (kg)</th>
+        </tr>
+    {% for event in events %}
+        <tr>
+            <td>{{event.excercise}}</td>
+            <td>{{event.reps}}</td>
+            <td>{{event.weight}}</td>
+        </tr>
+    {% endfor %}
+    </table>
 
 </body>
 </html>
