@@ -17,6 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.shortcuts import render
+from workout.models import Excercise
+
+def indexPage(request):
+    excercises = Excercise.objects.all() # ⭐ SQL Magic ✨
+
+    return render(
+        request, 
+        'index.html', 
+        {"excercises": excercises}
+    )
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', indexPage, name="index")
 ]

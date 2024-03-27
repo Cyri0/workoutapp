@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Workout App Evahh 99% Muscle 🦾 110% FUN 😁 100% DANGER 🚨</title>
+</head>
+<body>
+    <h1>WorkoutApp</h1>
+
+    <form action="#" method="post">
+        <label for="excercise">Gyakorlat</label><br>
+        <select name="excercise" id="excercise">
+            {% for excercise in excercises %}
+                <option value="{{ excercise.id }}">{{ excercise.name }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="reps">Ismétlés</label><br>
+        <input type="number" name="reps" id="reps"><br>
+
+        <label for="weight">Súly (kg)</label><br>
+        <input type="number" name="weight" id="weight"><br>
+
+        <input type="submit" value="Mentés">
+    </form>
+
+    
+
+
+</body>
+</html>
